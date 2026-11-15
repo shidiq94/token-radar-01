@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="page-header">
+  <h1>Token Launch Radar</h1>
+  <p class="subtitle">Implied value = TVL &times; peer multiple &times; growth factor &times; tenure factor. Peers are token-bearing protocols in the same category; the protocols listed here record no token.</p>
+  <p class="meta-line">
+    <span>As of <strong id="asOf">&mdash;</strong></span>
+    <span>Source: <strong>DefiLlama</strong></span>
+    <span id="rowCount"></span>
+    <span class="note">Every protocol below records no token.</span>
+  </p>
+</header>
+
+<section class="controls" aria-label="Filters">
+  <label class="control">
+    <span>Search</span>
+    <input type="search" id="searchInput" placeholder="Search name or slug&hellip;" autocomplete="off">
+  </label>
+  <label class="control">
+    <span>Category</span>
+    <select id="categorySelect"></select>
+  </label>
+  <label class="control">
+    <span>Chain</span>
+    <select id="chainSelect"></select>
+  </label>
+  <label class="control control-check">
+    <input type="checkbox" id="watchlistOnly">
+    <span>Watchlist only</span>
+  </label>
+  <label class="control">
+    <span>Sort by</span>
+    <select id="sortSelect">
+      <option value="rank">Rank</option>
+      <option value="implied_value_usd">Implied value</option>
+      <option value="tvl_usd">TVL</option>
+      <option value="change_7d">7d change</option>
+    </select>
+  </label>
+</section>
+
+<p class="result-count" id="resultCount" aria-live="polite"></p>
+
+<main>
+  <table id="boardTable">
+    <thead>
+      <tr>
+        <th data-sort="rank">Rank</th>
+        <th data-sort="name">Protocol</th>
+        <th data-sort="category">Category</th>
+        <th data-sort="chains">Chains</th>
+        <th data-sort="tvl_usd">TVL</th>
+        <th data-sort="change_7d">7d</th>
+        <th data-sort="implied_value_usd">Implied value</th>
+      </tr>
+    </thead>
+    <tbody id="boardBody"></tbody>
+  </table>
+  <p class="empty-state" id="emptyState" hidden>No protocols match the current filters.</p>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="detailName">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Close detail view">&times;</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <p><strong>Methodology.</strong> Implied value = TVL &times; peer multiple &times; growth factor &times; tenure factor. The peer multiple is the category median market-cap-to-TVL ratio of token-bearing protocols in the same category (global median when a category has fewer than two listed peers), clamped to 0.02&ndash;2.0. The growth factor adjusts for the protocol&rsquo;s 7-day TVL change; the tenure factor grows with years since the protocol was listed. Only protocols that record no token are ranked.</p>
+  <p><strong>Disclaimer.</strong> This board is a snapshot: it records no token for the protocols listed. Implied values are estimates, not predictions, and no token launch is promised. Farm steps are guidance, not financial advice. Do your own research before using any protocol.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
